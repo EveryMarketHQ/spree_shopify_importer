@@ -13,11 +13,11 @@ module SpreeShopifyImporter
     def initialize(credentials: nil)
       @credentials = credentials
       @credentials ||= {
-        api_key: Spree::Config[:shopify_api_key],
-        password: Spree::Config[:shopify_password],
-        shop_domain: Spree::Config[:shopify_shop_domain],
-        token: Spree::Config[:shopify_token],
-        api_version: Spree::Config[:shopify_api_version]
+        api_key: Spree::ShopifyImporter::Config[:shopify_api_key],
+        password: Spree::ShopifyImporter::Config[:shopify_password],
+        shop_domain: Spree::ShopifyImporter::Config[:shopify_shop_domain],
+        token: Spree::ShopifyImporter::Config[:shopify_token],
+        api_version: Spree::ShopifyImporter::Config[:shopify_api_version]
       }
     end
 
@@ -35,7 +35,7 @@ module SpreeShopifyImporter
     end
 
     def set_current_credentials
-      Spree::Config[:shopify_current_credentials] = @credentials
+      Spree::ShopifyImporter::Config[:shopify_current_credentials] = @credentials
     end
 
     def initiate_import!

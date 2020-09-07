@@ -6,6 +6,10 @@ module SpreeShopifyImporter
 
     config.autoload_paths += %W[#{config.root}/lib #{config.root}/app/services]
 
+    initializer 'spree.shopify_importer.environment', before: :load_config_initializers do
+      Spree::ShopifyImporter::Config = Spree::ShopifyImporterSetting.new
+    end
+    
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec

@@ -1,0 +1,51 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:settings, scope: :shopify_importer) %>
+<% end %>
+
+<%= form_tag admin_shopify_importer_settings_path, method: :put do %>
+  <fieldset>
+    <div data-hook="admin_social_method_form_fields">
+      <div class="row">
+
+        <div class="col-md-6" data-hook="shopify_importer">
+          <fieldset>
+            <legend><%= Spree.t(:shopify_importer_settings, scope: :shopify_importer) %></legend>
+
+            <div id="shopify_api_key">
+              <div class="form-group">
+                <%= label_tag :shopify_api_key, Spree.t(:shopify_api_key, scope: [:shopify_importer, :preferences]) %>
+                <%= text_field_tag :shopify_api_key, Spree::ShopifyImporter::Config[:shopify_api_key], class: 'form-control' %>
+              </div>
+            </div>
+
+            <div id="shopify_password">
+              <div class="form-group">
+                <%= label_tag :shopify_password, Spree.t(:shopify_password, scope: [:shopify_importer, :preferences]) %>
+                <%= text_field_tag :shopify_password, Spree::ShopifyImporter::Config[:shopify_password], class: 'form-control' %>
+              </div>
+            </div>
+
+            <div id="shopify_shop_domain">
+              <div class="form-group">
+                <%= label_tag :shopify_shop_domain, Spree.t(:shopify_shop_domain, scope: [:shopify_importer, :preferences]) %>
+                <%= text_field_tag :shopify_shop_domain, Spree::ShopifyImporter::Config[:shopify_shop_domain], class: 'form-control' %>
+              </div>
+            </div>
+
+            <div id="shopify_api_version">
+              <div class="form-group">
+                <%= label_tag :shopify_api_version, Spree.t(:shopify_api_version, scope: [:shopify_importer, :preferences]) %>
+                <%= text_field_tag :shopify_api_version, Spree::ShopifyImporter::Config[:shopify_api_version], class: 'form-control' %>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="form-actions" data-hook="buttons">
+        <%= button Spree.t('actions.update'), 'save' %>
+      </div>
+
+    </div>
+  </fieldset>
+<% end %>

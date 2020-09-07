@@ -11,7 +11,7 @@ module SpreeShopifyImporter
       retries ||= 1
       yield
     rescue ActiveResource::ClientError => ex
-      raise ex if retries >= Spree::Config[:shopify_rescue_limit]
+      raise ex if retries >= Spree::ShopifyImporter::Config[:shopify_rescue_limit]
 
       sleep 2**retries
       retries += 1
