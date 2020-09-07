@@ -1,6 +1,7 @@
 module SpreeShopifyImporter
   module Connections
     class DeliveryProfile
+      ShopifyAPI::Base.api_version = Spree::ShopifyImporter::Config[:shopify_api_version]
       DELIVERY_PROFILE_QUERY = ShopifyAPI::GraphQL.new.parse <<-'GRAPHQL'
         query($id: ID!) {
           productVariant (id: $id) {
