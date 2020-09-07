@@ -21,5 +21,6 @@ en:
     client:
       missing_credentials: You must provide authentication token or api_key and password in order to authenticate.
   shopify_custom_collections: Shopify Custom Collections
-  shopify_importer:
+  spree:
+    shopify_importer:
       shopify_importer_settings: Shopify Importer Settings
