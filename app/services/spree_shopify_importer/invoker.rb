@@ -27,6 +27,19 @@ module SpreeShopifyImporter
       initiate_import!
     end
 
+    def import_products!
+      connect
+
+      SpreeShopifyImporter::DataFetchers::ProductsFetcher.new.import!
+    end
+
+    def import_products_test!
+      # connect
+      product_object = SpreeShopifyImporter::DataFeed.find_by(shopify_object_type: "ShopifyAPI::Product").first
+
+      SpreeShopifyImporter::Importers::ProductImporterJob.perform_later(product_object.data_feed)
+    end
+
     private
 
     def connect

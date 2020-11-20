@@ -13,6 +13,7 @@ module SpreeShopifyImporter
             available_on: @shopify_product.published_at,
             slug: @shopify_product.handle,
             price: @shopify_product.variants.first.try(:price) || 0,
+            compare_at_price: @shopify_product.variants.first.try(:compare_at_price) || 0,
             created_at: @shopify_product.created_at,
             shipping_category: shipping_category
           }

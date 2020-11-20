@@ -18,6 +18,8 @@ module SpreeShopifyImporter
 
         def add_option_types
           return if options.blank?
+          # skip if only option is Title
+          return if options.first.name == "Title"
 
           @spree_product.update!(option_type_ids: create_option_types)
         end
@@ -31,6 +33,8 @@ module SpreeShopifyImporter
 
         def create_spree_variants
           @shopify_product.variants.each do |variant|
+            # skip if variant is Default Title
+            next if variant.title == "Default Title"
             SpreeShopifyImporter::Importers::VariantImporterJob.perform_later(variant.to_json,
                                                                               @shopify_data_feed,
                                                                               @spree_product,
