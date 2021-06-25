@@ -59,8 +59,8 @@ module SpreeShopifyImporter
       spree_images = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Image", spree_object_id: nil).where.not(parent_id: nil)
 
       spree_images.each do |image|
-        next if image.parent.spree_product.nil?
-        SpreeShopifyImporter::Importers::ImageImporterJob.perform_later(image.data_feed, image.parent, image.parent.spree_product)
+        next if image.parent.spree_object.nil?
+        SpreeShopifyImporter::Importers::ImageImporterJob.perform_later(image.data_feed, image.parent, image.parent.spree_object)
       end
     end
 
