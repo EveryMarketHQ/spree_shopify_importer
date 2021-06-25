@@ -9,8 +9,9 @@ module SpreeShopifyImporter
 
         def attributes
           @attributes ||= {
-            sku: @shopify_variant.sku,
+            sku: @shopify_variant.sku.blank? ? "" : @shopify_variant.sku,
             price: @shopify_variant.price,
+            compare_at_price: @shopify_variant.compare_at_price,
             weight: @shopify_variant.grams,
             position: @shopify_variant.position,
             product_id: @spree_product.id,

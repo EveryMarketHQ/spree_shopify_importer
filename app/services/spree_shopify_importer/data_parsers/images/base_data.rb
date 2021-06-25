@@ -5,6 +5,9 @@ module SpreeShopifyImporter
     module Images
       class BaseData
         def initialize(shopify_image)
+          OpenURI::Buffer.send :remove_const, 'StringMax'
+          OpenURI::Buffer.const_set 'StringMax', 0
+          
           @shopify_image = shopify_image
         end
 
