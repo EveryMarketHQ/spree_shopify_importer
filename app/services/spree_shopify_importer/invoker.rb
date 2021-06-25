@@ -27,7 +27,7 @@ module SpreeShopifyImporter
       initiate_import!
     end
 
-    def import_products(limit: nil)
+    def import_products(limit)
       if limit
         products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product", spree_object_id: nil).where.not(data_feed: [nil, ""]).limit(limit)
       else
