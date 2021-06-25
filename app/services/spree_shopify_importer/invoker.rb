@@ -27,15 +27,19 @@ module SpreeShopifyImporter
       initiate_import!
     end
 
-    def import_products!
-      products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product", spree_object_id: nil).where.not(data_feed: [nil, ""])
+    def import_products(limit: nil)
+      if limit
+        products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product", spree_object_id: nil).where.not(data_feed: [nil, ""]).limit(limit)
+      else
+        products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product", spree_object_id: nil).where.not(data_feed: [nil, ""])
+      end
 
       products.each do |product|
         SpreeShopifyImporter::Importers::ProductImporterJob.perform_later(product.data_feed)
       end
     end
 
-    def import_taxons!
+    def import_taxons
       taxons = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::CustomCollection", spree_object_id: nil).where.not(data_feed: [nil, ""])
 
       taxons.each do |taxon|
@@ -43,7 +47,7 @@ module SpreeShopifyImporter
       end
     end
 
-    def import_users!
+    def import_users
       users = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Customer", spree_object_id: nil).where.not(data_feed: [nil, ""])
 
       users.each do |user|
@@ -51,7 +55,7 @@ module SpreeShopifyImporter
       end
     end
 
-    def import_missing_images!
+    def import_missing_images
       spree_images = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Image", spree_object_id: nil).where.not(parent_id: [nil, ""])
 
       spree_images.each do |image|
@@ -60,7 +64,7 @@ module SpreeShopifyImporter
       end
     end
 
-    def import_products_test!
+    def import_products_test
       # connect
       product_object = SpreeShopifyImporter::DataFeed.find_by(shopify_object_type: "ShopifyAPI::Product")
 
