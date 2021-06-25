@@ -28,9 +28,36 @@ module SpreeShopifyImporter
     end
 
     def import_products!
-      connect
+      products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product", spree_object_id: nil).where.not(data_feed: [nil, ""])
 
-      SpreeShopifyImporter::DataFetchers::ProductsFetcher.new.import!
+      products.each do |product|
+        SpreeShopifyImporter::Importers::ProductImporterJob.perform_later(product.data_feed)
+      end
+    end
+
+    def import_taxons!
+      taxons = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::CustomCollection", spree_object_id: nil).where.not(data_feed: [nil, ""])
+
+      taxons.each do |taxon|
+        SpreeShopifyImporter::Importers::TaxonImporterJob.perform_later(taxon.data_feed)
+      end
+    end
+
+    def import_users!
+      users = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Customer", spree_object_id: nil).where.not(data_feed: [nil, ""])
+
+      users.each do |user|
+        SpreeShopifyImporter::Importers::UserImporterJob.perform_later(user.data_feed)
+      end
+    end
+
+    def import_missing_images!
+      spree_images = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Image", spree_object_id: nil).where.not(parent_id: [nil, ""])
+
+      spree_images.each do |image|
+        next if image.parent.spree_product.nil?
+        SpreeShopifyImporter::Importers::ImageImporterJob.perform_later(image.data_feed, image.parent, image.parent.spree_product)
+      end
     end
 
     def import_products_test!
