@@ -56,7 +56,7 @@ module SpreeShopifyImporter
     end
 
     def import_missing_images
-      spree_images = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Image", spree_object_id: nil).where.not(parent_id: [nil, ""])
+      spree_images = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Image", spree_object_id: nil).where.not(parent_id: nil)
 
       spree_images.each do |image|
         next if image.parent.spree_product.nil?
