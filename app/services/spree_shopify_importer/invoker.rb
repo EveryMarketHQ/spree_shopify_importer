@@ -7,6 +7,7 @@ module SpreeShopifyImporter
       SpreeShopifyImporter::DataFetchers::ShopifyZonesFetcher,
       SpreeShopifyImporter::DataFetchers::UsersFetcher,
       SpreeShopifyImporter::DataFetchers::TaxonsFetcher,
+      SpreeShopifyImporter::DataFetchers::SmartTaxonsFetcher,
       SpreeShopifyImporter::DataFetchers::OrdersFetcher
     ].freeze
 
