@@ -31,6 +31,15 @@ module SpreeShopifyImporter
           end
         end
 
+        def add_master_sku_weight_barcode
+          # set only if option is Title
+          if options.first.name == "Title" and options.first.values.first == "Default Title"
+            @spree_product.master.update!(sku: @shopify_product.variants.first.try(:sku) || "", 
+              weight: @shopify_product.variants.first.try(:grams) || 0,
+              barcode: @shopify_product.variants.first.try(:barcode) || "")
+          end
+        end
+        
         def create_spree_variants
           @shopify_product.variants.each do |variant|
             # skip if variant is Default Title

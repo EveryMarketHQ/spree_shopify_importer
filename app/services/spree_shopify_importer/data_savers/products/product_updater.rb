@@ -9,13 +9,14 @@ module SpreeShopifyImporter
 
         def update!
           Spree::Product.transaction do
-            update_spree_product
-            add_option_types
-            add_tags
+            # update_spree_product
+            # add_option_types
+            # add_tags
+            add_master_sku_weight_barcode
           end
-          create_delivery_profiles
-          create_spree_variants
-          create_spree_images
+          # create_delivery_profiles
+          # create_spree_variants
+          # create_spree_images
         end
 
         private

@@ -8,6 +8,7 @@ module SpreeShopifyImporter
             assign_spree_product_to_data_feed
             add_option_types
             add_tags
+            add_master_sku_weight_barcode
           end
           create_delivery_profiles
           create_spree_variants
