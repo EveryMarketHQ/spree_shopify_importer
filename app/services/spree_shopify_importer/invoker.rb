@@ -40,6 +40,14 @@ module SpreeShopifyImporter
       end
     end
 
+    def update_all_products
+      products = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::Product").where.not(data_feed: [nil, ""])
+
+      products.each do |product|
+        SpreeShopifyImporter::Importers::ProductImporterJob.perform_later(product.data_feed)
+      end
+    end
+
     def import_taxons
       taxons = SpreeShopifyImporter::DataFeed.where(shopify_object_type: "ShopifyAPI::CustomCollection", spree_object_id: nil).where.not(data_feed: [nil, ""])
 
