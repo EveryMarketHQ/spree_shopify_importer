@@ -41,7 +41,7 @@ module SpreeShopifyImporter
         end
 
         def add_brand
-          @spree_product.update!(main_brand: @shopify_product.vendor)
+          @spree_product.update!(main_brand: shopify_product.vendor)
         end
         
         def create_spree_variants
