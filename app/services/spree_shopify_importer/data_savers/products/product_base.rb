@@ -39,6 +39,10 @@ module SpreeShopifyImporter
               barcode: @shopify_product.variants.first.try(:barcode) || "")
           end
         end
+
+        def add_brand
+          @spree_product.update!(main_brand: @shopify_product.vendor)
+        end
         
         def create_spree_variants
           @shopify_product.variants.each do |variant|

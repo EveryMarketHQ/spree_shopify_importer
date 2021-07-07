@@ -12,7 +12,8 @@ module SpreeShopifyImporter
             # update_spree_product
             # add_option_types
             # add_tags
-            add_master_sku_weight_barcode
+            # add_master_sku_weight_barcode
+            add_brand
           end
           # create_delivery_profiles
           # create_spree_variants
